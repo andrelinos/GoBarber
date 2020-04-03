@@ -132,8 +132,8 @@ dist
 .tern-port
 
 # Adicionais
-temp/uploads/*
-backend/temp/uploads/*
+tmp/uploads/*
+backend/tmp/uploads/*
 
 
 
