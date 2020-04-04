@@ -5,6 +5,17 @@
 /.pnp
 .pnp.js
 
+# Locks
+yarn.lock
+backend/yarn.lock
+frontend/yarn.lock
+mobile/yarn.lock
+
+package-lock.json
+backend/package-lock.json
+frontend/package-lock.json
+mobile/package-lock.json
+
 # testing
 /coverage
 
