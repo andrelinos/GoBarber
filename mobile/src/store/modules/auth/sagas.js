@@ -5,32 +5,35 @@ import api from '~/services/api';
 import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
-  // try {
-  const { email, password } = payload;
+  try {
+    const { email, password } = payload;
 
-  const response = yield call(api.post, 'sessions', {
-    email,
-    password,
-  });
+    const response = yield call(api.post, 'sessions', {
+      email,
+      password,
+    });
 
-  const { token, user } = response.data;
+    const { token, user } = response.data;
 
-  if (user.provider) {
-    Alert.alert('Erro no login', 'Usuário não pode ser prestador de serviços.');
-    return;
-  }
+    if (user.provider) {
+      Alert.alert(
+        'Erro no login',
+        'Usuário não pode ser prestador de serviços.'
+      );
+      return;
+    }
 
-  api.defaults.headers.Authorization = `Bearer ${token}`;
+    api.defaults.headers.Authorization = `Bearer ${token}`;
 
-  yield put(signInSuccess(token, user));
-  /*  } catch (err) {
+    yield put(signInSuccess(token, user));
+  } catch (err) {
     yield put(signFailure());
     const { message } = err.response.data.error;
     Alert.alert(
       'Falha na autenticação',
       `Houve  um erro no login, verique seus dados. ${message}`
     );
-  } */
+  }
 }
 
 export function* signUp({ payload }) {
