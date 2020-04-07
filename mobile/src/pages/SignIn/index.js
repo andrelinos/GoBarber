@@ -64,9 +64,6 @@ export default function SignIn({ navigation }) {
         <SignLink onPress={() => navigation.navigate('SignUp')}>
           <SignLinkText>Criar conta gratuita</SignLinkText>
         </SignLink>
-        <SignLink onPress={handleSubmit}>
-          <SignLinkText>handleSubmit</SignLinkText>
-        </SignLink>
       </Container>
     </Background>
   );

@@ -1,8 +1,8 @@
 import { Alert } from 'react-native';
-import { takeLatest, call, put, all } from 'redux-saga/effects';
+import { takeLatest, call, put, all, delay } from 'redux-saga/effects';
 
 import api from '~/services/api';
-import { signInSuccess, signFailure } from './actions';
+import { signInSuccess, signUpSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
   try {
@@ -26,6 +26,8 @@ export function* signIn({ payload }) {
 
     api.defaults.headers.Authorization = `Bearer ${token}`;
 
+    yield delay(3000);
+
     yield put(signInSuccess(token, user));
   } catch (err) {
     Alert.alert(
@@ -40,18 +42,35 @@ export function* signUp({ payload }) {
   try {
     const { name, email, password } = payload;
 
+    const response = yield call(api.get, 'users', {
+      email,
+    });
+
+    const [user] = response.data;
+
+    if (email === user.email) {
+      Alert.alert(
+        'Falha no cadastro',
+        `E-mail já cadastrado em nosso sistema.${user.email}`
+      );
+      yield put(signFailure());
+      return;
+    }
+
     yield call(api.post, 'users', {
       name,
       email,
       password /* ,
       provider: true - cadastro apenas para não prestadores */,
     });
+    Alert.alert('Sucesso!', `Cadastro realizado com sucesso!`);
+    yield put(signUpSuccess());
 
     //  history.push('/');
   } catch (err) {
     Alert.alert(
       'Falha no cadastro',
-      'Houve  um erro no cadastro, verique seus dados.'
+      `Houve  um erro no cadastro, verique seus dados.`
     );
     yield put(signFailure());
   }
