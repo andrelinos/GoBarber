@@ -20,6 +20,7 @@ export function* signIn({ payload }) {
         'Erro no login',
         'Usuário não pode ser prestador de serviços.'
       );
+      yield put(signFailure());
       return;
     }
 
@@ -27,12 +28,11 @@ export function* signIn({ payload }) {
 
     yield put(signInSuccess(token, user));
   } catch (err) {
-    yield put(signFailure());
-    const { message } = err.response.data.error;
     Alert.alert(
       'Falha na autenticação',
-      `Houve  um erro no login, verique seus dados. ${message}`
+      `Houve  um erro no login, verique seus dados.`
     );
+    yield put(signFailure());
   }
 }
 
@@ -53,7 +53,6 @@ export function* signUp({ payload }) {
       'Falha no cadastro',
       'Houve  um erro no cadastro, verique seus dados.'
     );
-
     yield put(signFailure());
   }
 }
