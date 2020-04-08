@@ -45,7 +45,7 @@ class UserController {
     const { page = 1, quantity = 20 } = req.query;
 
     const { rows: users } = await User.findAndCountAll({
-      attributes: ['id', 'name', 'email'],
+      attributes: ['id', 'name', 'email', 'avatar_id'],
       limit: quantity,
       offset: (page - 1) * quantity,
       order: [['created_at', 'DESC']],

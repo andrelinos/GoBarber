@@ -22,6 +22,7 @@ export const Avatar = styled.Image`
   width: 50px;
   height: 50px;
   border-radius: 25px;
+  background: #f9f9f9;
 `;
 
 export const Info = styled.View`
