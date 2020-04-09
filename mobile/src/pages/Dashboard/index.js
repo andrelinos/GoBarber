@@ -20,6 +20,21 @@ export default function Dashboard() {
     loadAppointments();
   }, []);
 
+  async function handleCancel(id) {
+    const response = await api.delete(`appointments/${id}`);
+
+    setAppointments(
+      appoitments.map((appoitment) =>
+        appoitment.id === id
+          ? {
+              ...appoitment,
+              canceled_at: response.data.canceled_at,
+            }
+          : appoitment
+      )
+    );
+  }
+
   return (
     <Background>
       <Container>
@@ -28,7 +43,9 @@ export default function Dashboard() {
         <List
           data={appoitments}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({ item }) => <Appointment data={item} />}
+          renderItem={({ item }) => (
+            <Appointment onCancel={() => handleCancel(item.id)} data={item} />
+          )}
         />
       </Container>
     </Background>
