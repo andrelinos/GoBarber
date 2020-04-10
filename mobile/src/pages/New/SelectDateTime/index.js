@@ -45,7 +45,10 @@ export default function SelectDateTime({ navigation }) {
           data={hours}
           keyExtractor={(item) => item.time}
           renderItem={({ item }) => (
-            <Hour onPress={() => handleSelectHour()} enable={item.available}>
+            <Hour
+              onPress={() => handleSelectHour(item.value)}
+              enable={item.available}
+            >
               <Title>{item.time} </Title>
             </Hour>
           )}

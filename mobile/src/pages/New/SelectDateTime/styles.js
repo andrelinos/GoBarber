@@ -1,11 +1,14 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
 
-export const Container = styled.View``;
+export const Container = styled.SafeAreaView`
+  flex: 1;
+`;
 
 export const HourList = styled.FlatList.attrs({
   numColumns: 2,
   showsVerticalScrollIndicator: false,
+  contentContainerStyle: { padding: 30 },
 })`
   padding: 20px;
 `;

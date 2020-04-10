@@ -9,7 +9,7 @@ import { Container, DateButton, DateText } from './styles';
 
 export default function DateInput({ date, onChange }) {
   const dateFormatted = useMemo(
-    () => format(date, "dd 'de' MMMM 'de' yyyyy", { locale: pt }),
+    () => format(date, "dd 'de' MMMM 'de' yyyy", { locale: pt }),
     [date]
   );
 
